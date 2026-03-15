@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>DISC Personality Analyzer</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LANDING PAGE -->
+
+<div id="landing">
+
+<h1>DISC Personality Analyzer</h1>
+
+<p>Understand your behavioral style, leadership approach and work personality.</p>
+
+<div class="features">
+✔ 10 Question Assessment<br>
+✔ Instant Personality Result<br>
+✔ Career Suggestions
+</div>
+
+<button onclick="startQuiz()">Start Personality Test</button>
+
+</div>
+
+
+
+<!-- QUIZ PAGE -->
+
+<div id="quiz">
+
+<h2 id="progress"></h2>
+
+<div class="progress-bar">
+<div id="progressFill"></div>
+</div>
+
+<div class="card">
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+</div>
+
+</div>
+
+
+
+<!-- RESULT PAGE -->
+
+<div id="result">
+
+<h1 id="typeTitle"></h1>
+
+<p id="typeDesc"></p>
+
+
+<h2>Your DISC Profile</h2>
+
+<div class="disc-grid">
+
+<div id="Dbox" class="disc-box d">
+<h3>D</h3>
+<p>Dominance</p>
+</div>
+
+<div id="Ibox" class="disc-box i">
+<h3>I</h3>
+<p>Influence</p>
+</div>
+
+<div id="Cbox" class="disc-box c">
+<h3>C</h3>
+<p>Conscientiousness</p>
+</div>
+
+<div id="Sbox" class="disc-box s">
+<h3>S</h3>
+<p>Steadiness</p>
+</div>
+
+</div>
+
+
+<h2>Personality Distribution</h2>
+
+<ul id="percentages"></ul>
+
+
+
+<div class="result-grid">
+
+<div class="box">
+
+<h3>Strengths</h3>
+
+<ul id="strengths"></ul>
+
+</div>
+
+
+<div class="box">
+
+<h3>Weaknesses</h3>
+
+<ul id="weaknesses"></ul>
+
+</div>
+
+</div>
+
+
+
+<div class="career">
+
+<h3>Recommended Careers</h3>
+
+<ul id="careers"></ul>
+
+</div>
+
+
+<button onclick="restartTest()">Restart Test</button>
+
+</div>
+
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
