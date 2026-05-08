@@ -1,34 +1,70 @@
-let questions=[
+let questions = [
 
-{q:"When working in a team you prefer:",a:["Taking charge","Motivating others","Analyzing details","Supporting quietly"],type:["D","I","C","S"]},
+{
+q:"When working in a team you prefer:",
+type:["D","I","C","S"]
+},
 
-{q:"Your ideal work style:",a:["Fast and competitive","Social and energetic","Careful and precise","Calm and steady"],type:["D","I","C","S"]},
+{
+q:"Your ideal work style:",
+type:["D","I","C","S"]
+},
 
-{q:"People describe you as:",a:["Bold","Friendly","Analytical","Patient"],type:["D","I","C","S"]},
+{
+q:"People describe you as:",
+type:["D","I","C","S"]
+},
 
-{q:"Your decision style:",a:["Quick decisions","Group discussion","Data analysis","Safe choices"],type:["D","I","C","S"]},
+{
+q:"Your decision style:",
+type:["D","I","C","S"]
+},
 
-{q:"Your communication style:",a:["Direct","Expressive","Thoughtful","Gentle"],type:["D","I","C","S"]},
+{
+q:"Your communication style:",
+type:["D","I","C","S"]
+},
 
-{q:"In stressful situations you:",a:["Take control","Talk it out","Think logically","Stay patient"],type:["D","I","C","S"]},
+{
+q:"In stressful situations you:",
+type:["D","I","C","S"]
+},
 
-{q:"Your biggest strength:",a:["Confidence","Social skills","Accuracy","Stability"],type:["D","I","C","S"]},
+{
+q:"Your biggest strength:",
+type:["D","I","C","S"]
+},
 
-{q:"You prefer work that is:",a:["Challenging","Interactive","Detailed","Stable"],type:["D","I","C","S"]},
+{
+q:"You prefer work that is:",
+type:["D","I","C","S"]
+},
 
-{q:"Your leadership style:",a:["Commanding","Inspiring","Strategic","Supportive"],type:["D","I","C","S"]},
+{
+q:"Your leadership style:",
+type:["D","I","C","S"]
+},
 
-{q:"You usually make decisions:",a:["Fast","With others","Using data","Slow but safe"],type:["D","I","C","S"]}
+{
+q:"You usually make decisions:",
+type:["D","I","C","S"]
+}
 
 ];
 
-let scores={D:0,I:0,C:0,S:0};
+let current = 0;
 
-let current=0;
+let scores = {
+D:0,
+I:0,
+C:0,
+S:0
+};
 
 function startQuiz(){
 
 document.getElementById("landing").style.display="none";
+
 document.getElementById("quiz").style.display="block";
 
 showQuestion();
@@ -37,29 +73,44 @@ showQuestion();
 
 function showQuestion(){
 
-let q=questions[current];
+document.getElementById("question").innerText =
+questions[current].q;
 
-document.getElementById("progress").innerText="Question "+(current+1)+" / "+questions.length;
+let percent = Math.round((current/questions.length)*100);
 
-document.getElementById("progressFill").style.width=((current)/questions.length*100)+"%";
+document.getElementById("progressFill").style.width =
+percent+"%";
 
-document.getElementById("question").innerText=q.q;
+document.getElementById("progressText").innerText =
+percent+"% Done";
 
-let html="";
-
-q.a.forEach((opt,i)=>{
-
-html+=`<div class="option" onclick="choose('${q.type[i]}')">${opt}</div>`;
-
-});
-
-document.getElementById("options").innerHTML=html;
+removeSelection();
 
 }
 
-function choose(type){
+function choose(index){
 
-scores[type]++;
+let options = document.querySelectorAll(".option");
+
+options[index].classList.add("selected");
+
+setTimeout(()=>{
+
+if(index==0){
+scores.D+=2;
+}
+
+else if(index==1){
+scores.I+=2;
+}
+
+else if(index==3){
+scores.S+=2;
+}
+
+else if(index==4){
+scores.C+=2;
+}
 
 current++;
 
@@ -73,6 +124,18 @@ showResult();
 
 }
 
+},400);
+
+}
+
+function removeSelection(){
+
+document.querySelectorAll(".option").forEach(opt=>{
+
+opt.classList.remove("selected");
+
+});
+
 }
 
 function showResult(){
@@ -81,86 +144,148 @@ document.getElementById("quiz").style.display="none";
 
 document.getElementById("result").style.display="block";
 
-let max="D";
+let max = "D";
 
-for(let t in scores){
+for(let key in scores){
 
-if(scores[t]>scores[max]) max=t;
+if(scores[key] > scores[max]){
+
+max = key;
 
 }
 
-document.getElementById(max+"box").classList.add("highlight");
+}
 
-let total=questions.length;
-
-document.getElementById("percentages").innerHTML=`
-
-<li>Dominance: ${Math.round(scores.D/total*100)}%</li>
-<li>Influence: ${Math.round(scores.I/total*100)}%</li>
-<li>Conscientiousness: ${Math.round(scores.C/total*100)}%</li>
-<li>Steadiness: ${Math.round(scores.S/total*100)}%</li>
-
-`;
+let title = "";
+let desc = "";
+let strengths = "";
+let weaknesses = "";
+let careers = "";
 
 if(max=="D"){
 
-document.getElementById("typeTitle").innerText="Dominance (D) – The Leader";
+title = "Dominant Personality";
+desc = "You are confident, ambitious and leadership oriented.";
 
-document.getElementById("typeDesc").innerText="Confident, direct and results-driven.";
+strengths = `
+<li>Leadership</li>
+<li>Confidence</li>
+<li>Quick Decisions</li>
+`;
 
-document.getElementById("strengths").innerHTML="<li>Leadership</li><li>Confidence</li><li>Decision making</li>";
+weaknesses = `
+<li>Impatient</li>
+<li>Aggressive</li>
+`;
 
-document.getElementById("weaknesses").innerHTML="<li>Impatient</li><li>Dominating</li>";
-
-document.getElementById("careers").innerHTML="<li>Entrepreneur</li><li>Manager</li><li>CEO</li>";
+careers = `
+<li>CEO</li>
+<li>Entrepreneur</li>
+<li>Manager</li>
+`;
 
 }
 
 if(max=="I"){
 
-document.getElementById("typeTitle").innerText="Influence (I) – The Socializer";
+title = "Influential Personality";
+desc = "You are social, energetic and highly expressive.";
 
-document.getElementById("typeDesc").innerText="Outgoing, enthusiastic and persuasive.";
+strengths = `
+<li>Communication</li>
+<li>Motivation</li>
+<li>Creativity</li>
+`;
 
-document.getElementById("strengths").innerHTML="<li>Communication</li><li>Networking</li>";
+weaknesses = `
+<li>Impulsive</li>
+<li>Emotional</li>
+`;
 
-document.getElementById("weaknesses").innerHTML="<li>Impulsive</li><li>Disorganized</li>";
-
-document.getElementById("careers").innerHTML="<li>Marketing</li><li>Sales</li><li>Public Relations</li>";
+careers = `
+<li>Marketing</li>
+<li>Sales</li>
+<li>Public Relations</li>
+`;
 
 }
 
 if(max=="C"){
 
-document.getElementById("typeTitle").innerText="Conscientiousness (C) – The Analyst";
+title = "Conscientious Personality";
+desc = "You are analytical, detail-oriented and logical.";
 
-document.getElementById("typeDesc").innerText="Detail oriented, logical and analytical.";
+strengths = `
+<li>Accuracy</li>
+<li>Analysis</li>
+<li>Discipline</li>
+`;
 
-document.getElementById("strengths").innerHTML="<li>Accuracy</li><li>Problem solving</li>";
+weaknesses = `
+<li>Overthinking</li>
+<li>Perfectionism</li>
+`;
 
-document.getElementById("weaknesses").innerHTML="<li>Overthinking</li><li>Perfectionism</li>";
-
-document.getElementById("careers").innerHTML="<li>Engineer</li><li>Data Analyst</li><li>Scientist</li>";
+careers = `
+<li>Engineer</li>
+<li>Scientist</li>
+<li>Data Analyst</li>
+`;
 
 }
 
 if(max=="S"){
 
-document.getElementById("typeTitle").innerText="Steadiness (S) – The Supporter";
+title = "Steady Personality";
+desc = "You are calm, reliable and supportive.";
 
-document.getElementById("typeDesc").innerText="Calm, supportive and reliable.";
+strengths = `
+<li>Patience</li>
+<li>Loyalty</li>
+<li>Supportive Nature</li>
+`;
 
-document.getElementById("strengths").innerHTML="<li>Patience</li><li>Loyalty</li>";
+weaknesses = `
+<li>Slow Decisions</li>
+<li>Avoid Conflict</li>
+`;
 
-document.getElementById("weaknesses").innerHTML="<li>Avoid conflict</li><li>Slow decisions</li>";
-
-document.getElementById("careers").innerHTML="<li>Teacher</li><li>HR</li><li>Counselor</li>";
+careers = `
+<li>Teacher</li>
+<li>HR</li>
+<li>Counselor</li>
+`;
 
 }
 
+document.getElementById("resultTitle").innerText = title;
+
+document.getElementById("resultDesc").innerText = desc;
+
+document.getElementById("strengths").innerHTML = strengths;
+
+document.getElementById("weaknesses").innerHTML = weaknesses;
+
+document.getElementById("careers").innerHTML = careers;
+
+let total =
+scores.D + scores.I + scores.C + scores.S;
+
+document.getElementById("percentages").innerHTML = `
+
+<li>Dominance : ${Math.round(scores.D/total*100)}%</li>
+
+<li>Influence : ${Math.round(scores.I/total*100)}%</li>
+
+<li>Conscientiousness : ${Math.round(scores.C/total*100)}%</li>
+
+<li>Steadiness : ${Math.round(scores.S/total*100)}%</li>
+
+`;
+
 }
 
-function restartTest(){
+function restartQuiz(){
 
 location.reload();
 
