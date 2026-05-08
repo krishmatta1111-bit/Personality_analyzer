@@ -1,104 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<title>DISC Personality Analyzer</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personality Analyzer</title>
+
 <link rel="stylesheet" href="style.css">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
-
 <body>
-
-<div class="container">
 
 <!-- LANDING PAGE -->
 
-<div id="landing">
+<div class="landing" id="landing">
 
-<h1>DISC Personality Analyzer</h1>
-
-<p>Understand your behavioral style, leadership approach and work personality.</p>
-
-<div class="features">
-✔ 10 Question Assessment<br>
-✔ Instant Personality Result<br>
-✔ Career Suggestions
+<div class="logo">
+🧠 PersonalityAnalyzer
 </div>
 
-<button onclick="startQuiz()">Start Personality Test</button>
+<h1>Discover Your Personality Traits</h1>
 
-</div>
+<p>
+Take a quick personality assessment and get detailed insights
+about your behavior, strengths and career style.
+</p>
 
-
-
-<!-- QUIZ PAGE -->
-
-<div id="quiz">
-
-<h2 id="progress"></h2>
-
-<div class="progress-bar">
-<div id="progressFill"></div>
-</div>
-
-<div class="card">
-
-<h3 id="question"></h3>
-
-<div id="options"></div>
-
-</div>
+<button onclick="startQuiz()">
+Take Your Test →
+</button>
 
 </div>
 
 
 
-<!-- RESULT PAGE -->
+<!-- QUIZ SECTION -->
 
-<div id="result">
+<div class="quiz-container" id="quiz">
 
-<h1 id="typeTitle"></h1>
+<div class="top-bar">
 
-<p id="typeDesc"></p>
-
-
-<h2>Your DISC Profile</h2>
-
-<div class="disc-grid">
-
-<div id="Dbox" class="disc-box d">
-<h3>D</h3>
-<p>Dominance</p>
+<div class="logo-small">
+🧠 PersonalityAnalyzer
 </div>
 
-<div id="Ibox" class="disc-box i">
-<h3>I</h3>
-<p>Influence</p>
-</div>
+<div class="progress-box">
 
-<div id="Cbox" class="disc-box c">
-<h3>C</h3>
-<p>Conscientiousness</p>
-</div>
+<div class="progress-fill" id="progressFill"></div>
 
-<div id="Sbox" class="disc-box s">
-<h3>S</h3>
-<p>Steadiness</p>
+<span id="progressText">0% Done</span>
+
 </div>
 
 </div>
 
 
-<h2>Personality Distribution</h2>
+<div class="question-box">
+
+<h2 id="question"></h2>
+
+<div class="options">
+
+<div class="option disagree big" onclick="choose(0)">
+</div>
+
+<div class="option disagree small" onclick="choose(1)">
+</div>
+
+<div class="option neutral" onclick="choose(2)">
+</div>
+
+<div class="option agree small" onclick="choose(3)">
+</div>
+
+<div class="option agree big" onclick="choose(4)">
+</div>
+
+</div>
+
+<div class="labels">
+
+<span>Disagree</span>
+<span>Agree</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- RESULT SECTION -->
+
+<div class="result" id="result">
+
+<h1 id="resultTitle"></h1>
+
+<p id="resultDesc"></p>
+
+<div class="chart">
+
+<div class="circle d">D</div>
+<div class="circle i">I</div>
+<div class="circle c">C</div>
+<div class="circle s">S</div>
+
+</div>
+
+
+<div class="score-box">
+
+<h2>Your Personality Distribution</h2>
 
 <ul id="percentages"></ul>
 
+</div>
 
 
-<div class="result-grid">
+<div class="cards">
 
-<div class="box">
+<div class="card">
 
 <h3>Strengths</h3>
 
@@ -106,8 +130,7 @@
 
 </div>
 
-
-<div class="box">
+<div class="card">
 
 <h3>Weaknesses</h3>
 
@@ -118,8 +141,7 @@
 </div>
 
 
-
-<div class="career">
+<div class="career-box">
 
 <h3>Recommended Careers</h3>
 
@@ -128,10 +150,9 @@
 </div>
 
 
-<button onclick="restartTest()">Restart Test</button>
-
-</div>
-
+<button onclick="restartQuiz()">
+Restart Test
+</button>
 
 </div>
 
